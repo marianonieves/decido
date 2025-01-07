@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>decido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            justify-content: space-between;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 2rem;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .question-box {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: white;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            color: #333;
+            text-align: center;
+        }
+        
+        .user-question-box {
+            width: 90%;
+            max-width: 500px;
+            background-color: white;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            color: #333;
+            text-align: center;
+        }
+                
+        .answer-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            background-color: white;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1.5rem;
+            color: #333;
+            text-align: center;
+            display: none; /* Hidden initially */
+        }
+
+        .answer-time {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 10px;
+        }
+
+        .screenshot-message {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 15px;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #444;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .share-button {
+            background-color: #0066cc;
+            color: white;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                font-size: 1.5rem;
+            }
+            .question-box, .answer-box {
+                font-size: 1rem;
+                padding: 15px;
+            }
+            button {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    decido
+</header>
+
+<main>
+    <!-- Question Box -->
+    <div class="question-box" id="question-box">
+        <label for="user-question">What do you want to decide?</label><br>
+        <input type="text" class="user-question-box" id="user-question" placeholder="tell me..." oninput="validateQuestion()"/>
+    </div>
+    
+    <!-- Button to Guide Me -->
+    <button id="guide-btn" onclick="generateAnswer()" disabled>Guide Me</button>
+
+    <!-- Answer Box (hidden initially) -->
+    <div class="answer-box" id="answer-box">
+        <!-- The answer will appear here -->
+    </div>
+
+    <!-- Buttons container for Reset and Share -->
+    <div class="button-container" id="button-container" style="display:none;">
+        <button class="share-button" id="share-btn" onclick="shareDecision()">Share Decision</button>
+        <button id="reset-btn" onclick="resetPage()">Reset</button>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer>
+    <p>Use this tool as a guide. Final decisions are yours.</p>
+    <p>Developed by <a href="https://nievesnet.com.ar/" target="_blank">NievesNet</a></p>
+</footer>
+
+<script>
+    // List of possible answers
+    const answers = [
+        "Yes, absolutely!",
+        "No, definitely not.",
+        "Yes, go for it!",
+        "No, reconsider.",
+        "Yes, this is the right choice.",
+        "No, this is not the right path.",
+        "Yes, it’s a good idea.",
+        "No, it’s better to wait.",
+        "Yes, you should take action now.",
+        "No, don’t proceed.",
+        "Yes, but proceed with caution.",
+        "Not yet, but soon.",
+        "Yes, but double-check first.",
+        "No, but there’s potential for later.",
+        "Yes, with some adjustments.",
+        "No, but you’re close to a good decision.",
+        "Yes, if you’re ready.",
+        "No, re-evaluate your options.",
+        "Go for it, you’ve got this!",
+        "It’s a great move, make it happen.",
+        "Yes, this is your moment.",
+        "Absolutely yes, everything aligns.",
+        "Take the leap, you won’t regret it.",
+        "Definitely not, don’t risk it.",
+        "Avoid this, it’s not worth it.",
+        "This is a no-go, find another path.",
+        "It’s a hard no. Trust your gut.",
+        "Don’t make this decision now, it’s not ideal.",
+        "No, it’s not the right time.",
+        "The choice is yours, but think it through.",
+        "Consider the pros and cons carefully.",
+        "Take some time to reflect on this decision.",
+        "It’s a 50/50 split, weigh your options.",
+        "This decision depends on what you want to prioritize.",
+        "Evaluate the long-term impact before proceeding.",
+        "Take the chance, you’ll succeed.",
+        "This is your opportunity, take it!",
+        "Go ahead, it’s time to step out of your comfort zone.",
+        "Risk it, but do so wisely."
+    ];
+
+    // Enable the "Guide Me" button when the user types in the question box
+    function validateQuestion() {
+        const questionInput = document.getElementById('user-question');
+        const guideBtn = document.getElementById('guide-btn');
+        guideBtn.disabled = questionInput.value.trim() === '';
+    }
+
+    // Function to generate random answer
+    function generateAnswer() {
+        const randomAnswer = answers[Math.floor(Math.random() * answers.length)];
+
+        // Get current date and time
+        const currentDate = new Date();
+        const formattedDate = currentDate.toLocaleString();
+
+        // Show the answer in the answer box
+        const answerBox = document.getElementById('answer-box');
+        answerBox.innerHTML = `
+            <p>${randomAnswer}</p>
+            <p class="answer-time">Answered on: ${formattedDate}</p>
+            <p class="screenshot-message">Take a screenshot to save a reminder of your decision!</p>
+        `;
+        answerBox.style.display = 'block';
+
+        // Show the button container (Reset and Share buttons)
+        document.getElementById('button-container').style.display = 'flex';
+
+        // Change the "Guide Me" button to "Reset"
+        const guideBtn = document.getElementById('guide-btn');
+        guideBtn.style.display = 'none';
+      
+
+                // guideBtn.textContent = 'Reset';
+                // guideBtn.setAttribute('onclick', 'resetPage()');
+    }
+
+    // Reset the page to initial state
+    function resetPage() {
+        // Clear the question box
+        document.getElementById('user-question').value = '';
+        // Hide the answer box and button container
+        document.getElementById('answer-box').style.display = 'none';
+        document.getElementById('button-container').style.display = 'none';
+
+        // Change the button back to "Guide Me" and disable it
+        const guideBtn = document.getElementById('guide-btn');
+		guideBtn.style.display = 'flex';
+        guideBtn.textContent = 'Guide Me';
+        guideBtn.setAttribute('onclick', 'generateAnswer()');
+        guideBtn.disabled = true;
+        
+    }
+
+    // Share the page link (simple implementation)
+    function shareDecision() {
+        const url = window.location.href;
+        const message = "Check out my decision from DECIDO! ";
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}&url=${encodeURIComponent("https://decido.work/")}`, '_blank');
+    }
+</script>
+
+</body>
+</html>
