@@ -2,14 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <meta name="google-adsense-account" content="ca-pub-9893897466892751">
+    <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE">	
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta property="og:title" content="Decido: Simplify Your Decisions" />
+    <meta property="og:description" content="Decido helps you make smarter choices by simplifying your decision-making process." />
+    <meta property="og:image" content="https://decido.work/og-image.jpg" />
+    <meta property="og:url" content="https://decido.work/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Decido: Simplify Your Decisions" />
+    <meta name="twitter:description" content="Decido helps you make smarter choices by simplifying your decision-making process." />
+    <meta name="twitter:image" content="https://decido.work/twitter-image.jpg" />
 	
     <title>decido: Simplify Your Decisions | Smart Decision-Making Platform</title>
     <meta name="description" content="Decido simplifies your decisions by providing quick answers and decision-making tools. Make smarter choices with ease on our platform.">
     <meta name="keywords" content="decision-making platform, simplify decisions, smart choices, online decision tools">
-	
+
+	<link rel="preconnect" href="https://pagead2.googlesyndication.com">	
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -156,17 +170,15 @@
 </header>
 
 <main>
+  <section class="question-section">
     <!-- Question Box -->
     <div class="question-box" id="question-box">
         <h3> <label for="user-question">What do you want to decide?</label></h3>
-    <!-- 
-        <input type="text" class="user-question-box" id="user-question" placeholder="tell me..." oninput="validateQuestion()"/>
-    --->
-    <textarea name="user-question" cols="40" rows="4" class="user-question-box" id="user-question" placeholder="..." oninput="validateQuestion()" ></textarea>
+    <textarea name="user-question" cols="40" rows="4" class="user-question-box" id="user-question" placeholder="type your statement here..." oninput="validateQuestion()" ></textarea>
     
     </div>
-
-	
+  </section>
+  <section class="answer-section">	
     <!-- Button to GO -->
     <button id="guide-btn" onclick="generateAnswer()" disabled>GO!</button>
 
@@ -177,16 +189,17 @@
 
     <!-- Buttons container for Reset and Share -->
     <div class="button-container" id="button-container" style="display:none;">
-        <button id="reset-btn" onclick="resetPage()">Reset</button>
+        <button id="reset-btn" onclick="resetPage()">Restart</button>
         <button class="share-button" id="share-btn" onclick="shareDecision()">Share Decision</button>
     </div>
+  </section>
 </main>
 
 <!-- Footer -->
 <footer>
-    <p><b>decido</b> is your go-to decision-making platform. Whether you're facing tough choices or everyday decisions, we simplify the process for you.</p>
-    <p>Use this tool as a guide. Final decisions are yours.</p>
-    <p>Developed by <a href="https://nievesnet.com.ar/" target="_blank">NievesNet</a></p>
+    <p><b>Decido</b> is your go-to decision-making platform. Whether you're facing tough choices or everyday decisions, we simplify the process for you.</p>
+    <p>Check out our <a href="/decision-making-tools">decision-making tools</a> and <a href="/faq">frequently asked questions</a> to learn more.</p>
+    <p>Developed by <a href="https://nievesnet.com.ar/" target="_blank" rel="noopener">NievesNet</a></p>
 </footer>
 
 <script>
