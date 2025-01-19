@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lifes Meta Demo - Pixel Streaming</title>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            margin: 0;
+        }        
+    </style>
+    <script> 
+    navigator.permissions.query(
+    { name: 'microphone' }
+).then(function(permissionStatus){
+
+    console.log("permissionStatus.state:" + permissionStatus.state); // granted, denied, prompt
+
+    permissionStatus.onchange = function(){
+        console.log("Permission changed to " + this.state);
+    }
+
+})
+    </script>    
+    
+    </head>
+    <body>
+
+    <div id="am-container" 
+      style="width:640px; height:480px;">
+      <div id="arcane-player"
+        data-project-id="5022"
+        data-project-key="3f4ae755-6b1a-4240-88c0-5e7d7dd14623"
+      data-token="BieFLvxhH1SI"
+      ></div>
+    <script 
+        src="https://embed.arcanemirage.com/3f4ae755-6b1a-4240-88c0-5e7d7dd14623/e" 
+        defer>
+      </script>
+    </div>
+    
+  
+    </body>
+</html>
