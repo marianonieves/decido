@@ -172,6 +172,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 padding: 10px 20px;
             }
         }
+        
+        .tips-section {
+        	display: flex; flex-direction: column; align-items: center; margin: 20px 0;
+		}
+
+        .tip-card {
+          background-color: white; border: 2px solid #ddd; border-radius: 5px; padding: 20px; font-size: 1.2rem; text-align: center; max-width: 500px;
+        }
+        
     </style>
 	
 </head>
@@ -187,6 +196,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </header>
 
 <main>
+<!-- Section for Decision-Making Tips -->
+<section id="tips-section" class="tips-section" >
+  <div id="tip-card" class="tip-card" >
+    <!-- Tip will be dynamically inserted here -->
+  </div>
+</section>
+
+<script src="tips.js"></script>
+
   <section class="question-section">
     <!-- Question Box -->
     <div class="question-box" id="question-box">
